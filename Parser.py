@@ -220,6 +220,7 @@ def keteranganRecognizer(word):
                 ]
     transition_table = {}
 
+    
     for state in state_list:
         for alphabet in alphabet_list:
             transition_table[(state, alphabet)] = 'error'
@@ -309,6 +310,7 @@ def Parser(sentence):
     st.write("\n - Parser  \n")
     tokens = sentence.lower().split()
     tokens.append('EOS')
+    logic = True
     # symbols definition
     non_terminals = ['S','SB','P','O','K']
     terminals = ['aku','dia','tia','anto','budi',
@@ -318,7 +320,14 @@ def Parser(sentence):
                 ]
 
     parse_table = {}
-    
+    if len(tokens) >= 3 :
+        if tokens[1] == 'membaca' and (tokens[2] == 'film' or tokens[2] == 'anime'):
+            logic = False
+        elif tokens[1] == 'menonton' and (tokens[2] == 'buku' or tokens[2] == 'surat'):
+            logic = False
+        elif (tokens[1] == 'suka' or tokens[1] == 'sayang') and (tokens[2] == 'surat'):
+            logic = False
+
     terminal = tokenRecognizer(sentence)
     print(terminal)
     if terminal == ['SB','P','O']:                 
@@ -518,7 +527,10 @@ def Parser(sentence):
     #conlusion
     print()
     if symbol == 'EOS' and len(stack) == 0:
-        teks = "ACCEPTED"
+        if not logic :
+            teks = "SESUAI STRUKTUR/DITERIMA NAMUN TIDAK LOGIS"
+        else:
+            teks = "SESUAI STRUKTUR/DITERIMA DAN LOGIS"
         # Menggabungkan semua bagian teks menjadi satu string
         output = f'Input string "{sentence}" : <b>{teks}</b>'
         # Menampilkan teks dalam satu baris tanpa pemisah baris
@@ -565,8 +577,9 @@ def struktur(sentence):
 
 def mainParser():
     header()  
-    print("Terminal: aku - dia - tia - anto - budi | suka - sayang - membaca - melihat - menonton | kamu - buku - anime - surat - film | kemarin - besok - nanti - banget - sekali \n")
-    sentence = st.text_input("Masukan di sini:  ")
+    terminal = 'Terminal:\n aku - dia - tia - anto - budi | suka - sayang - membaca - melihat - menonton | kamu - buku - anime - surat - film | kemarin - besok - nanti - banget - sekali'
+    st.write(f'<b>{terminal}</b>', unsafe_allow_html=True)
+    sentence = st.text_input("Masukan kalimat di sini:  ")
     struktur(sentence)
     Parser(sentence)
 
