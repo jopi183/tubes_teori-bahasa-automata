@@ -4,7 +4,7 @@ def subjectRecognizer(word):
     alphabet_list = list(string.ascii_lowercase)
     state_list = [
                 'q0','q1','q2','q3','q4','q5','q6','q7','q8','q9','q10',
-                'q11','q12','q13'
+                'q11','q12'
                 ]
     transition_table = {}
 
@@ -19,44 +19,44 @@ def subjectRecognizer(word):
     transition_table[("q0", " ")] = "q0"
 
     # Finish state
-    transition_table[("q13", "#")] = "accept"
-    transition_table[("q13", " ")] = "q13"
+    transition_table[("q12", "#")] = "accept"
+    transition_table[("q12", " ")] = "q12"
 
     #Untuk kata "aku"
     transition_table[("q0","a")] = "q1"
     transition_table[("q1","k")] = "q2"
-    transition_table[("q2","u")] = "q13"
+    transition_table[("q2","u")] = "q12"
 
     #Untuk kata "dia"
-    transition_table[("q0","d")] = "q3"
-    transition_table[("q3","i")] = "q4"
-    transition_table[("q4","a")] = "q13"
+    transition_table[("q0","d")] = "q5"
+    transition_table[("q5","i")] = "q6"
+    transition_table[("q6","a")] = "q12"
 
     #Untuk kata "tia"
-    transition_table[("q0","t")] = "q5"
-    transition_table[("q5","i")] = "q6"
-    transition_table[("q6","a")] = "q13"
+    transition_table[("q0","t")] = "q7"
+    transition_table[("q7","i")] = "q8"
+    transition_table[("q8","a")] = "q12"
 
     #Untuk kata "anto"
-    transition_table[("q0","a")] = "q7"
-    transition_table[("q7","n")] = "q8"
-    transition_table[("q8","t")] = "q9"
-    transition_table[("q9","o")] = "q13"
+    transition_table[("q0","a")] = "q1"
+    transition_table[("q1","n")] = "q3"
+    transition_table[("q3","t")] = "q4"
+    transition_table[("q4","o")] = "q12"
 
     #Untuk kata "budi"
-    transition_table[("q0","b")] = "q10"
-    transition_table[("q10","u")] = "q11"
-    transition_table[("q11","d")] = "q12"
-    transition_table[("q12","i")] = "q13"
+    transition_table[("q0","b")] = "q9"
+    transition_table[("q9","u")] = "q10"
+    transition_table[("q10","d")] = "q11"
+    transition_table[("q11","i")] = "q12"
 
     idx_char = 0
     state = 'q0'
     current_token = ''
-    while state!='accept':
+    while state!='q12':
         current_char = word[idx_char]
         current_token += current_char
         state = transition_table[(state, current_char)]
-        if state=='q13':
+        if state=='q12':
             return True
         if state== 'error':
             return False
@@ -93,40 +93,40 @@ def predicateRecognizer(word):
     transition_table[("q3","a")] = "q23"
 
     #Untuk kata "membaca"
-    transition_table[("q0","m")] = "q3"
-    transition_table[("q3","e")] = "q4"
-    transition_table[("q4","m")] = "q5"
-    transition_table[("q5","b")] = "q6"
-    transition_table[("q6","a")] = "q7"
-    transition_table[("q7","c")] = "q8"
-    transition_table[("q8","a")] = "q23"
+    transition_table[("q0","m")] = "q8"
+    transition_table[("q8","e")] = "q9"
+    transition_table[("q9","m")] = "q10"
+    transition_table[("q10","b")] = "q11"
+    transition_table[("q11","a")] = "q12"
+    transition_table[("q12","c")] = "q13"
+    transition_table[("q13","a")] = "q23"
 
     #Untuk kata "menonton"
-    transition_table[("q0","m")] = "q3"
-    transition_table[("q3","e")] = "q4"
-    transition_table[("q4","n")] = "q13"
-    transition_table[("q13","o")] = "q14"
-    transition_table[("q14","n")] = "q15"
-    transition_table[("q15","t")] = "q16"
-    transition_table[("q16","o")] = "q17"
-    transition_table[("q17","n")] = "q23"
+    transition_table[("q0","m")] = "q8"
+    transition_table[("q8","e")] = "q9"
+    transition_table[("q9","n")] = "q18"
+    transition_table[("q18","o")] = "q19"
+    transition_table[("q19","n")] = "q20"
+    transition_table[("q20","t")] = "q21"
+    transition_table[("q21","o")] = "q22"
+    transition_table[("q22","n")] = "q23"
 
     #Untuk kata "melihat"
-    transition_table[("q0","m")] = "q3"
-    transition_table[("q3","e")] = "q4"
-    transition_table[("q4","l")] = "q9"
-    transition_table[("q9","i")] = "q10"
-    transition_table[("q10","h")] = "q11"
-    transition_table[("q11","a")] = "q12"
-    transition_table[("q12","t")] = "q23"
+    transition_table[("q0","m")] = "q8"
+    transition_table[("q8","e")] = "q9"
+    transition_table[("q9","l")] = "q14"
+    transition_table[("q14","i")] = "q15"
+    transition_table[("q15","h")] = "q16"
+    transition_table[("q16","a")] = "q17"
+    transition_table[("q17","t")] = "q23"
 
     #Untuk kata "sayang"
-    transition_table[("q0","s")] = "q18"
-    transition_table[("q18","a")] = "q19"
-    transition_table[("q19","y")] = "q20"
-    transition_table[("q20","a")] = "q21"
-    transition_table[("q21","n")] = "q22"
-    transition_table[("q22","g")] = "q23"
+    transition_table[("q0","s")] = "q1"
+    transition_table[("q1","a")] = "q4"
+    transition_table[("q4","y")] = "q5"
+    transition_table[("q5","a")] = "q6"
+    transition_table[("q6","n")] = "q7"
+    transition_table[("q7","g")] = "q23"
 
     idx_char = 0
     state = 'q0'
@@ -135,7 +135,152 @@ def predicateRecognizer(word):
         current_char = word[idx_char]
         current_token += current_char
         state = transition_table[(state, current_char)]
-        if state=='q13':
+        if state=='q23':
+            return True
+        if state== 'error':
+            return False
+        idx_char = idx_char + 1
+    return False
+
+def objectRecognizer(word):
+    alphabet_list = list(string.ascii_lowercase)
+    state_list = [
+                'q0','q1','q2','q3','q4','q5','q6','q7','q8','q9','q10',
+                'q11','q12','q13','q14','q15','q16','q17','q18'
+                ]
+    transition_table = {}
+
+    for state in state_list:
+        for alphabet in alphabet_list:
+            transition_table[(state, alphabet)] = 'error'
+        transition_table[(state, '#')] = 'error'
+        transition_table[(state, ' ')] = 'error'
+
+    #Table transition
+    # first state
+    transition_table[("q0", " ")] = "q0"
+
+    # Finish state
+    transition_table[("q18", "#")] = "accept"
+    transition_table[("q18", " ")] = "q18"
+
+    #Untuk kata "kamu"
+    transition_table[("q0","k")] = "q1"
+    transition_table[("q1","a")] = "q2"
+    transition_table[("q2","m")] = "q3"
+    transition_table[("q3","u")] = "q18"
+
+    #Untuk kata "film"
+    transition_table[("q0","f")] = "q4"
+    transition_table[("q4","i")] = "q5"
+    transition_table[("q5","l")] = "q6"
+    transition_table[("q6","m")] = "q18"
+
+    #Untuk kata "buku"
+    transition_table[("q0","b")] = "q7"
+    transition_table[("q7","u")] = "q8"
+    transition_table[("q8","k")] = "q9"
+    transition_table[("q9","u")] = "q18"
+
+    #Untuk kata "surat"
+    transition_table[("q0","s")] = "q10"
+    transition_table[("q10","u")] = "q11"
+    transition_table[("q11","r")] = "q12"
+    transition_table[("q12","a")] = "q13"
+    transition_table[("q13","t")] = "q18"
+
+    #Untuk kata "anime"
+    transition_table[("q0","a")] = "q14"
+    transition_table[("q14","n")] = "q15"
+    transition_table[("q15","i")] = "q16"
+    transition_table[("q16","m")] = "q17"
+    transition_table[("q17","e")] = "q18"
+
+    idx_char = 0
+    state = 'q0'
+    current_token = ''
+    while state!='q18':
+        current_char = word[idx_char]
+        current_token += current_char
+        state = transition_table[(state, current_char)]
+        if state=='q18':
+            return True
+        if state== 'error':
+            return False
+        idx_char = idx_char + 1
+    return False
+
+def keteranganRecognizer(word):
+    alphabet_list = list(string.ascii_lowercase)
+    state_list = [
+                'q0','q1','q2','q3','q4','q5','q6','q7','q8','q9','q10',
+                'q11','q12','q13','q14','q15','q16','q17','q18','q19','q20',
+                'q21','q22','q23','q24'
+                ]
+    transition_table = {}
+
+    for state in state_list:
+        for alphabet in alphabet_list:
+            transition_table[(state, alphabet)] = 'error'
+        transition_table[(state, '#')] = 'error'
+        transition_table[(state, ' ')] = 'error'
+
+    #Table transition
+    # first state
+    transition_table[("q0", " ")] = "q0"
+
+    # Finish state
+    transition_table[("q24", "#")] = "accept"
+    transition_table[("q24", " ")] = "q18"
+
+    #Untuk kata "kemarin"
+    transition_table[("q0","k")] = "q1"
+    transition_table[("q1","e")] = "q2"
+    transition_table[("q2","m")] = "q3"
+    transition_table[("q3","a")] = "q4"
+    transition_table[("q4","r")] = "q5"
+    transition_table[("q5","i")] = "q6"
+    transition_table[("q6","n")] = "q24"
+
+
+    #Untuk kata "besok"
+    transition_table[("q0","b")] = "q7"
+    transition_table[("q7","e")] = "q12"
+    transition_table[("q12","s")] = "q13"
+    transition_table[("q13","o")] = "q14"
+    transition_table[("q14","k")] = "q24"
+
+    #Untuk kata "banget"
+    transition_table[("q0","b")] = "q7"
+    transition_table[("q7","a")] = "q8"
+    transition_table[("q8","n")] = "q9"
+    transition_table[("q9","g")] = "q10"
+    transition_table[("q10","e")] = "q11"
+    transition_table[("q11","t")] = "q24"
+
+    #Untuk kata "sekali"
+    transition_table[("q0","s")] = "q15"
+    transition_table[("q15","e")] = "q16"
+    transition_table[("q16","k")] = "q17"
+    transition_table[("q17","a")] = "q18"
+    transition_table[("q18","l")] = "q19"
+    transition_table[("q19","i")] = "q24"
+
+    #Untuk kata "nanti"
+    transition_table[("q0","n")] = "q20"
+    transition_table[("q20","a")] = "q21"
+    transition_table[("q21","n")] = "q22"
+    transition_table[("q22","t")] = "q23"
+    transition_table[("q23","i")] = "q24"
+
+    idx_char = 0
+    state = 'q0'
+    current_token = ''
+    while state!='q24':
+        current_char = word[idx_char]
+        current_token += current_char
+        state = transition_table[(state, current_char)]
+        if state=='q24':
             return True
         if state== 'error':
             return False
@@ -148,12 +293,14 @@ def tokenRecognizer(sentence):
     for word in tokens:
         if subjectRecognizer(word) :
             terminal.append('SB')
-        elif PredicateRecognizer(word):
+        elif predicateRecognizer(word):
             terminal.append('P')
         elif objectRecognizer(word):
             terminal.append('O')
         elif keteranganRecognizer(word):
             terminal.append('K')
+        else:
+            terminal.append('INVALID')
     return terminal
 
 
@@ -170,13 +317,37 @@ def Parser(sentence):
                 ]
 
     parse_table = {}
-
-    parse_table[('S','aku')] = ['SB', 'P', 'O']
-    parse_table[('S','dia')] = ['SB', 'P', 'O']
-    parse_table[('S','tia')] = ['SB', 'P', 'O']
-    parse_table[('S','anto')] = ['SB', 'P', 'O']
-    parse_table[('S','budi')] = ['SB', 'P', 'O'] 
     
+    terminal = tokenRecognizer(sentence)
+    print(terminal)
+    if terminal == ['SB','P','O']:                 
+        parse_table[('S','aku')] = ['SB', 'P', 'O']
+        parse_table[('S','dia')] = ['SB', 'P', 'O']
+        parse_table[('S','tia')] = ['SB', 'P', 'O']
+        parse_table[('S','anto')] = ['SB', 'P', 'O']
+        parse_table[('S','budi')] = ['SB', 'P', 'O'] 
+    elif terminal == ['SB','P']: 
+        parse_table[('S','aku')] = ['SB', 'P']
+        parse_table[('S','dia')] = ['SB', 'P']
+        parse_table[('S','tia')] = ['SB', 'P']
+        parse_table[('S','anto')] = ['SB', 'P']
+        parse_table[('S','budi')] = ['SB', 'P'] 
+    elif terminal == ['SB','P','K']:
+        parse_table[('S','aku')] = ['SB', 'P', 'K']
+        parse_table[('S','dia')] = ['SB', 'P', 'K']
+        parse_table[('S','tia')] = ['SB', 'P', 'K']
+        parse_table[('S','anto')] = ['SB', 'P', 'K']
+        parse_table[('S','budi')] = ['SB', 'P', 'K'] 
+    elif terminal == ['SB','P','O','K']:
+        parse_table[('S','aku')] = ['SB', 'P','O', 'K']
+        parse_table[('S','dia')] = ['SB', 'P','O', 'K']
+        parse_table[('S','tia')] = ['SB', 'P','O', 'K']
+        parse_table[('S','anto')] = ['SB', 'P', 'O','K']
+        parse_table[('S','budi')] = ['SB', 'P','O', 'K']     
+    else:
+        print("INPUTAN ANDA TIDAK DITERIMA, TIDAK SESUAI STRUKTUR !!")
+        return
+         
     parse_table[('S','suka')] = ['error']
     parse_table[('S','membaca')] =['error']
     parse_table[('S','melihat')] = ['error']
@@ -274,7 +445,6 @@ def Parser(sentence):
     parse_table[('O','nanti')] = ['error']
     parse_table[('O','EOS')] = ['error']
 
-
     parse_table[('K','aku')] = ['error']
     parse_table[('K','dia')] = ['error']
     parse_table[('K','tia')] = ['error']
@@ -340,16 +510,55 @@ def Parser(sentence):
             print('error')
             break;
         print('isi stack: ', stack)
+        print("\n====== ========= ====== \n")
+
         print()
 
     #conlusion
     print()
     if symbol == 'EOS' and len(stack) == 0:
-        print('Input string ', '"', sentence,'"', ' diterima, sesuai Grammar')
+        print('Input string ', '"', sentence,'"', ' : ACCEPTED')
     else:
         print('Error, input string:','"', sentence,'"', ', tidak diterima, tidak sesuai Grammar')
+def header() :
+    print("=======================================")
+    print("            SELAMAT DATANG         ")
+    print("=======================================")
+    print("  TUGAS BESAR TEORI BAHASA DAN AUTOMATA")
+    print("=======================================")
+    print("          IF-46-02       ")
+    print("=======================================")
+    print("TOKEN RECOGNIZER & PARSER DALAM \nPENGECEKAN STRUKTUR BAHASA INDONESIA")
+    print("Joshua Pinem (1301223051)\nZaky Al Fatih Nata Imam (1301223172)\nYosia Parade Banua Sinaga (1301220190)\n")
 
-print("Terminal: aku - dia - tia - anto - budi | suka - membaca - melihat - menonton - sayang | kamu - film - buku - surat - anime | kemarin - besok - banget - sekali - nanti \n")
-sentence = input("Masukkan kalimat: ") 
-Parser(sentence)
+
+def struktur(sentence):
+    terminal = tokenRecognizer(sentence)
+    tokens = sentence.lower().split()
+    print("\n====== Token Recognizer ====== \n")
+    print("Struktur kalimat : ",terminal)
+    for word in tokens:
+        if subjectRecognizer(word) :
+            print(word, " : ","Subjek")
+        elif predicateRecognizer(word):
+            print(word, " : ","Predikat")
+        elif objectRecognizer(word):
+            print(word, " : ","Objek")
+        elif keteranganRecognizer(word):
+            print(word, " : ","Keterangan")
+        else:
+            print(word, " : ","Tidak Valid")
+    print("\n============================== \n")
+
+
+
+def main():
+    header()  
+    print("Terminal: aku - dia - tia - anto - budi | suka - sayang - membaca - melihat - menonton | kamu - buku - anime - surat - film | kemarin - besok - nanti - banget - sekali \n")
+    sentence = input("Input in here:  ")
+    struktur(sentence)
+    Parser(sentence)
+main()
+
+
 
