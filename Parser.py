@@ -1,4 +1,5 @@
 import string
+import streamlit as st
 
 def subjectRecognizer(word):
     alphabet_list = list(string.ascii_lowercase)
@@ -305,7 +306,7 @@ def tokenRecognizer(sentence):
 
 
 def Parser(sentence):
-    print("\n====== Parser ====== \n")
+    st.write("\n - Parser  \n")
     tokens = sentence.lower().split()
     tokens.append('EOS')
     # symbols definition
@@ -345,7 +346,7 @@ def Parser(sentence):
         parse_table[('S','anto')] = ['SB', 'P', 'O','K']
         parse_table[('S','budi')] = ['SB', 'P','O', 'K']     
     else:
-        print("INPUTAN ANDA TIDAK DITERIMA, TIDAK SESUAI STRUKTUR !!")
+        st.write("INPUTAN ANDA TIDAK DITERIMA, TIDAK SESUAI STRUKTUR !!")
         return
          
     parse_table[('S','suka')] = ['error']
@@ -482,34 +483,34 @@ def Parser(sentence):
     #parse table process
     while (len(stack) > 0):
         top = stack[len(stack)-1]
-        print('top = ', top)
-        print('symbol = ', symbol)
+        st.write('top = ', top)
+        st.write('symbol = ', symbol)
         if top in terminals:
-            print('top adalah simbol terminal')
+            st.write('top adalah simbol terminal')
             if top == symbol:
                 stack.pop()
                 idx_token = idx_token + 1
                 symbol = tokens[idx_token]
                 if symbol == "EOS":
                     stack.pop()
-                    print('isi stack:', stack)
+                    st.write('isi stack:', stack)
             else:
-                print('error')
+                st.write('error')
                 break;
         elif top in non_terminals:
-            print('top adalah simbol non-terminal')
+            st.write('top adalah simbol non-terminal')
             if parse_table[(top, symbol)][0] != 'error':
                 stack.pop()
                 symbol_to_be_pushed = parse_table[(top, symbol)]
                 for i in range(len(symbol_to_be_pushed)-1,-1,-1):
                     stack.append(symbol_to_be_pushed[i])
             else:
-                print('error')
+                st.write('error')
                 break;
         else:
             print('error')
             break;
-        print('isi stack: ', stack)
+        st.write('isi stack: ', stack)
         print("\n====== ========= ====== \n")
 
         print()
@@ -517,48 +518,59 @@ def Parser(sentence):
     #conlusion
     print()
     if symbol == 'EOS' and len(stack) == 0:
-        print('Input string ', '"', sentence,'"', ' : ACCEPTED')
+        teks = "ACCEPTED"
+        # Menggabungkan semua bagian teks menjadi satu string
+        output = f'Input string "{sentence}" : <b>{teks}</b>'
+        # Menampilkan teks dalam satu baris tanpa pemisah baris
+        st.write(output, unsafe_allow_html=True)
+       
     else:
-        print('Error, input string:','"', sentence,'"', ', tidak diterima, tidak sesuai Grammar')
+        st.write('Error, input string:','"', sentence,'"', ', tidak diterima, tidak sesuai Grammar')
 def header() :
+    st.title("TOKEN RECOGNIZER & PARSER DALAM PENGECEKAN STRUKTUR BAHASA INDONESIA")
     print("=======================================")
-    print("            SELAMAT DATANG         ")
+    #st.subheader("            SELAMAT DATANG         ")
     print("=======================================")
-    print("  TUGAS BESAR TEORI BAHASA DAN AUTOMATA")
+    st.sidebar.subheader("  TUGAS BESAR TEORI BAHASA DAN AUTOMATA")
     print("=======================================")
-    print("          IF-46-02       ")
+    st.sidebar.markdown("<h2 style='text-align: center;'>IF-46-02</h2>", unsafe_allow_html=True)
     print("=======================================")
-    print("TOKEN RECOGNIZER & PARSER DALAM \nPENGECEKAN STRUKTUR BAHASA INDONESIA")
-    print("Joshua Pinem (1301223051)\nZaky Al Fatih Nata Imam (1301223172)\nYosia Parade Banua Sinaga (1301220190)\n")
+    st.sidebar.subheader("By:")
+    st.sidebar.write("- Joshua Pinem (1301223051)")
+    st.sidebar.write("- Zaky Al Fatih Nata Imam (1301223172)")
+    st.sidebar.write("- Yosia Parade Banua Sinaga (1301220190)")
+
+    
 
 
 def struktur(sentence):
     terminal = tokenRecognizer(sentence)
     tokens = sentence.lower().split()
-    print("\n====== Token Recognizer ====== \n")
-    print("Struktur kalimat : ",terminal)
+    st.subheader("\n Token Recognizer  \n")
+    st.write(" - Struktur kalimat : ",terminal)
     for word in tokens:
         if subjectRecognizer(word) :
-            print(word, " : ","Subjek")
+            st.write(word, " : ","Subjek")
         elif predicateRecognizer(word):
-            print(word, " : ","Predikat")
+            st.write(word, " : ","Predikat")
         elif objectRecognizer(word):
-            print(word, " : ","Objek")
+            st.write(word, " : ","Objek")
         elif keteranganRecognizer(word):
-            print(word, " : ","Keterangan")
+            st.write(word, " : ","Keterangan")
         else:
-            print(word, " : ","Tidak Valid")
+            st.write(word, " : ","Tidak Valid")
     print("\n============================== \n")
 
 
 
-def main():
+def mainParser():
     header()  
     print("Terminal: aku - dia - tia - anto - budi | suka - sayang - membaca - melihat - menonton | kamu - buku - anime - surat - film | kemarin - besok - nanti - banget - sekali \n")
-    sentence = input("Input in here:  ")
+    sentence = st.text_input("Masukan di sini:  ")
     struktur(sentence)
     Parser(sentence)
-main()
+
+mainParser()
 
 
 
