@@ -19,3 +19,7 @@ K → kemarin | besok | banget | sekali | nanti
 ## Cara penggunaan :
 
 Masukan sebuah kata ataupun kalimat berdasarkan pilihan kata diatas dan mengikuti susunan yang diharuskan agar bisa mendapatkan hasil diterima selain daripada itu akan menghasilkan error ataupun tidak diterima
+
+## Try it out here !
+
+https://tubesteori-bahasa-automata-pd9n9opnf6ulxageqrsaq3.streamlit.app/
